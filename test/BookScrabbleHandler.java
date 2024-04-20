@@ -9,10 +9,11 @@ import java.util.Scanner;
 public class BookScrabbleHandler implements ClientHandler {
     private final DictionaryManager dictionaryManager;
 
-    public BookScrabbleHandler() {
+    public BookScrabbleHandler() { 
         this.dictionaryManager = DictionaryManager.get();
     }
 
+    // This class handles client requests
     @Override
     public void handleClient(InputStream inFromClient, OutputStream outToClient) {
         try (Scanner in = new Scanner(inFromClient);
