@@ -3,6 +3,7 @@ package test;
 import java.util.ArrayList;
 
 public class Board {
+    // Constants defining board properties like double/triple letter scores
     final int dl = 2;
     final int tl = 3;
     final int dw = 20;
@@ -28,7 +29,7 @@ public class Board {
         {tw, 0, 0, dl, 0, 0, 0, tw, 0, 0, 0, dl, 0, 0, tw}
 };
 
-    private Board(){
+    private Board(){ // Initialize board if it doesn't exist
 		tiles = new Tile[15][15];
         this.isEmpty = true;
 	}
@@ -41,10 +42,10 @@ public class Board {
 	public Tile[][] getTiles(){
 		return tiles.clone();
 	}
-	private boolean inBoard(int row, int col) {
+	private boolean inBoard(int row, int col) { // Check if word is within board boundaries
         return (col >= 0 && col < 15 && row >= 0 && row < 15);
     }
-	private boolean onStar(Word w) {
+	private boolean onStar(Word w) { // Check if word is played on star square
         int i = w.getRow(), j = w.getCol();
         for (int k = 0; k < w.getTiles().length; k++) {
             if (i == 7 && j == 7)
@@ -54,7 +55,7 @@ public class Board {
         }
         return false;
     }
-	private boolean crossTile(Word w) {
+	private boolean crossTile(Word w) { // Check if word intersects existing tiles
         int i = w.getRow(), j = w.getCol();
         for (int k = 0; k < w.getTiles().length; k++) {
 
@@ -75,7 +76,7 @@ public class Board {
         }
         return false;
     }
-	private boolean changesTile(Word w) {
+	private boolean changesTile(Word w) { // Check if word changes existing tiles
         int i = w.getRow(), j = w.getCol();
         for (Tile t : w.getTiles()) {
             if (tiles[i][j] != null && tiles[i][j] != t)
@@ -85,7 +86,7 @@ public class Board {
         }
         return false;
     }
-	public boolean boardLegal(Word w){
+	public boolean boardLegal(Word w){ // Main validation checking all conditions
 		int row = w.getRow();
         int col = w.getCol();
 		if (!inBoard(row, col)){
@@ -155,7 +156,7 @@ public class Board {
     }
     
 	public ArrayList<Word> getWords(Word w) {
-		Tile[][] ts = getTiles(); // a clone...
+		Tile[][] ts = getTiles();
 		ArrayList<Word> before = getAllWords(ts);
 		// demo placement of new word
 		int row = w.getRow();
@@ -171,7 +172,7 @@ public class Board {
         return after;
     }
     
-    public int getScore(Word w) {
+    public int getScore(Word w) { // Method to calculate score for a played word
         int row = w.getRow();
         int col = w.getCol();
         int sum = 0;
@@ -197,7 +198,7 @@ public class Board {
         return sum;
 
     }
-    public int tryPlaceWord(Word w) {
+    public int tryPlaceWord(Word w) { // Method to simulate playing a word
 
         Tile[] ts = w.getTiles();
         int row = w.getRow();
